@@ -5,7 +5,8 @@ Database Project
 
 |File Name|Status|Description|
 |---|---|---|
-|Table_Create.sql|Working On|SQL statement to create Tables|
+|Table_Create.sql|Final|SQL statement to create Tables|
+|Trigger_Create.sql|Final|SQL statement to create required Triggers|
 
 ## Contributions
 Thanks for NI, CHANG, JI, MU
