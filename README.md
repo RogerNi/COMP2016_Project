@@ -1,4 +1,4 @@
-# CoMP2016_Project
+# COMP2016_Project
 Database Project
 
 ## File Structure
@@ -6,3 +6,6 @@ Database Project
 |File Name|Status|Description|
 |---|---|---|
 |Table_Create.sql|Working On|SQL statement to create Tables|
+
+## Contributions
+Thanks for NI, CHANG, JI, MU
