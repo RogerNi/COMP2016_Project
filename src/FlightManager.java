@@ -175,6 +175,7 @@ public class FlightManager {
 	 * Run the manager
 	 */
 	public void run() {
+		JFrameCreate();
 		while (noException) {
 			showOptions();
 			String line = in.nextLine();
@@ -1158,7 +1159,7 @@ public class FlightManager {
 		JPanel p = new JPanel();
 		DefaultListModel<String> model = new DefaultListModel<String>();
 		JList<String> l = new JList<String>(model);
-		f.setSize(400, 600);
+		f.setSize(280, 600);
 		p.setLayout(new FlowLayout());
 		p.setBorder(new EmptyBorder(5, 5, 5, 5));
 		l.setSize(300, 300);
