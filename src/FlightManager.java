@@ -922,7 +922,23 @@ public class FlightManager {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				// to be filled
-
+				JFrame view = new JFrame("");
+				view.setSize(500, 600);
+				JPanel vp = new JPanel();
+				vp.setBorder(new EmptyBorder(5, 5, 5, 5));
+				view.setContentPane(vp);
+				view.setLayout(new FlowLayout());
+				JTextArea ta = new JTextArea();
+				ta.setText("");
+				vp.add(ta);
+				try {
+					selectFlightsGUI(depart_in_P_0.getText(), dest_in_P_0.getText(),
+							Integer.valueOf(maxTrans_in.getText()), Integer.valueOf(maxHour_in.getText()), ta);
+					view.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Input Invalid!");
+				}
 			}
 
 		});
@@ -1181,5 +1197,141 @@ public class FlightManager {
 			}
 
 		});
+	}
+
+	private void selectFlightsGUI(String dp, String ds, int cn, int time, JTextArea t) {
+		int resultCount = 0;
+		try {
+			/**
+			 * Create the statement and sql
+			 */
+			Statement stm = conn.createStatement();
+
+			String sql = "SELECT FLIGHT_NUMBER FROM FLIGHT " + "WHERE DEPARTURE_CITY = '" + dp
+					+ "' AND DESTINATION_CITY = '" + ds + "' AND ARRIVAL_TIME - DEPARTURE_TIME <= " + time + "/24";
+
+			// System.out.println(sql);
+
+			ResultSet rs = stm.executeQuery(sql);
+
+			// int resultCount = 0; // a counter to count the number of result
+			// records
+			while (rs.next()) { // this is the result record iterator, see the
+								// tutorial for details
+
+				/*
+				 * Write your own to print flight information; you may use the printFlightInfo()
+				 * function
+				 */
+				resultCount++;
+				printFlightInfoGUI(rs.getString(1), t);
+				t.append("=================================================\n");
+
+			}
+			// System.out.println("Total " + resultCount + " choice(s).");
+			rs.close();
+			stm.close();
+			// return resultCount;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			noException = false;
+			// return 0;
+		}
+		if (cn > 1)
+			try {
+				/**
+				 * Create the statement and sql
+				 */
+				Statement stm = conn.createStatement();
+
+				String sql = "SELECT F1.FLIGHT_NUMBER, F2.FLIGHT_NUMBER FROM FLIGHT F1, FLIGHT F2 WHERE F1.DESTINATION_CITY = F2.DEPARTURE_CITY AND F1.Arrival_Time < F2.Departure_Time AND F1.DEPARTURE_CITY = '"
+						+ dp + "' AND F2.DESTINATION_CITY = '" + ds + "' AND F2.ARRIVAL_TIME - F1.DEPARTURE_TIME <= "
+						+ time + "/24";
+
+				/**
+				 * Formulate your own SQL query:
+				 *
+				 * sql = "...";
+				 *
+				 */
+				// System.out.println(sql);
+
+				ResultSet rs = stm.executeQuery(sql);
+
+				// int resultCount = 0; // a counter to count the number of result
+				// records
+				while (rs.next()) { // this is the result record iterator, see the
+									// tutorial for details
+
+					/*
+					 * Write your own to print flight information; you may use the printFlightInfo()
+					 * function
+					 */
+					resultCount++;
+					printFlightInfoGUI(rs.getString(1), t);
+					t.append("-------------------------------------------------\n");
+					printFlightInfoGUI(rs.getString(2), t);
+					t.append("=================================================\n");
+
+				}
+				// System.out.println("Total " + resultCount + " choice(s).");
+				rs.close();
+				stm.close();
+				// return resultCount;
+			} catch (SQLException e) {
+				// e.printStackTrace();
+				noException = false;
+				// return 0;
+			}
+		if (cn > 2)
+			try {
+				/**
+				 * Create the statement and sql
+				 */
+				Statement stm = conn.createStatement();
+
+				String sql = "SELECT F1.FLIGHT_NUMBER, F2.FLIGHT_NUMBER, F3.FLIGHT_NUMBER FROM FLIGHT F1, FLIGHT F2, FLIGHT F3 WHERE F1.DESTINATION_CITY = F2.DEPARTURE_CITY AND F2.DESTINATION_CITY = F3.DEPARTURE_CITY AND F1.Arrival_Time < F2.Departure_Time AND F2.Arrival_Time < F3.DEPARTURE_TIME AND F1.DEPARTURE_CITY = '"
+						+ dp + "' AND F3.DESTINATION_CITY = '" + ds + "' AND F3.ARRIVAL_TIME - F1.DEPARTURE_TIME <="
+						+ time + "/24";
+
+				/**
+				 * Formulate your own SQL query:
+				 *
+				 * sql = "...";
+				 *
+				 */
+				System.out.println(sql);
+
+				ResultSet rs = stm.executeQuery(sql);
+
+				// int resultCount = 0; // a counter to count the number of result
+				// records
+				while (rs.next()) { // this is the result record iterator, see the
+									// tutorial for details
+
+					/*
+					 * Write your own to print flight information; you may use the printFlightInfo()
+					 * function
+					 */
+					resultCount++;
+					printFlightInfoGUI(rs.getString(1), t);
+					t.append("-------------------------------------------------\n");
+					printFlightInfoGUI(rs.getString(2), t);
+					t.append("-------------------------------------------------\n");
+					printFlightInfoGUI(rs.getString(3), t);
+					t.append("=================================================\n");
+
+				}
+				// System.out.println("Total " + resultCount + " choice(s).");
+				rs.close();
+				stm.close();
+				// return resultCount;
+			} catch (SQLException e) {
+				// e.printStackTrace();
+				noException = false;
+				// return 0;
+			}
+		t.append("Total " + resultCount + " choice(s).");
+
 	}
 }
