@@ -857,7 +857,7 @@ public class FlightManager {
 	private void JFrameCreate() {
 		JFrame f = new JFrame("Flight Manager") {
 		};
-		f.setSize(400, 500);
+		f.setSize(300, 500);
 		// f.setVisible(true);
 		// f.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		JPanel mainP = new JPanel();
@@ -1130,7 +1130,7 @@ public class FlightManager {
 					mainP.updateUI();
 				} else {
 					mainP.remove(subPanels[number]);
-					System.out.println("SubPanel " + number + " removed");
+					// System.out.println("SubPanel " + number + " removed");
 				}
 			}
 
@@ -1162,10 +1162,22 @@ public class FlightManager {
 				if (!e.getValueIsAdjusting()) {
 					// TODO Auto-generated method stub
 					t.setText("");
-					System.out.println("Changed");
+					// System.out.println("Changed");
 					printFlightInfoGUI(l.getSelectedValue(), t);
 
 				}
+			}
+
+		});
+		JButton refresh = new JButton("Refresh");
+		p.add(refresh);
+		refresh.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				model.clear();
+				listAllFlightGUI(model);
 			}
 
 		});
