@@ -27,12 +27,13 @@ import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 
 /**
- * This is a flight manager to support: (1) add a flight (2) delete a flight (by
- * flight_no) (3) print flight information (by flight_no) (4) select a flight
- * (by source, dest, stop_no = 0) (5) select a flight (by source, dest, stop_no
- * = 1)
+ * This is a flight manager which supports the following functions in both
+ * Command-line mode and GUI mode: (1) Print Flight Information (2) Add a flight
+ * (3) Delete a flight (4) Book flights (5) Cancel booking p.s. Part of the code
+ * was inherited from COMP2016 lab
  * 
- * @author comp1160/2016
+ * @author COMP2016_Group_
+ * @author NI Ronghao
  */
 
 public class FlightManager {
@@ -212,6 +213,9 @@ public class FlightManager {
 		}
 	}
 
+	/**
+	 * Book flights
+	 */
 	private void bookFlights() {
 		System.out.println("Please input the customer id:");
 		String cust = in.nextLine();
@@ -235,6 +239,9 @@ public class FlightManager {
 		}
 	}
 
+	/**
+	 * Delete a booking
+	 */
 	private void delBook() {
 		System.out.println("Please input customer id:");
 		String cust = in.nextLine();
@@ -260,6 +267,9 @@ public class FlightManager {
 		}
 	}
 
+	/**
+	 * Delete a booking in GUI mode
+	 */
 	private boolean delBookGUI(String[] s) {
 		try {
 			Statement stm = conn.createStatement();
@@ -307,6 +317,9 @@ public class FlightManager {
 		}
 	}
 
+	/**
+	 * Print our the information of a flight in GUI mode
+	 */
 	private void printFlightInfoGUI(String flight_no, JTextArea t) {
 		try {
 			Statement stm = conn.createStatement();
@@ -357,6 +370,9 @@ public class FlightManager {
 		}
 	}
 
+	/**
+	 * List all flights in the database in GUI mode
+	 */
 	private void listAllFlightGUI(DefaultListModel<String> model) {
 		// System.out.println("All flights in the database now:");
 		try {
@@ -395,7 +411,6 @@ public class FlightManager {
 	/**
 	 * Combine selectFlightInZeroStop() and selectFlightInOneStop()
 	 */
-
 	private void selectFlights() {
 		System.out.println("Please input source:");
 		String source = in.nextLine();
@@ -577,6 +592,9 @@ public class FlightManager {
 		 */
 	}
 
+	/**
+	 * Select all the flights can satisfy the requirement
+	 */
 	private int selectFlightsInTwoStop(String[] values) {
 		// System.out.println("Please input source, dest:");
 
@@ -699,6 +717,9 @@ public class FlightManager {
 		}
 	}
 
+	/**
+	 * Insert data into database in GUI mode
+	 */
 	private boolean addFlightGUI(String[] values) {
 		try {
 			Statement stm = conn.createStatement();
@@ -772,6 +793,9 @@ public class FlightManager {
 		}
 	}
 
+	/**
+	 * Delete a flight in GUI mode
+	 */
 	private boolean deleteFlightGUI(String s) {
 		try {
 			Statement stm = conn.createStatement();
@@ -855,6 +879,9 @@ public class FlightManager {
 		}
 	}
 
+	/**
+	 * Create main frame
+	 */
 	private void JFrameCreate() {
 		JFrame f = new JFrame("Flight Manager") {
 		};
@@ -1154,6 +1181,9 @@ public class FlightManager {
 		});
 	}
 
+	/**
+	 * Create flight view frame
+	 */
 	private void viewFlightGUI() {
 		JFrame f = new JFrame("View Flights");
 		JPanel p = new JPanel();
@@ -1200,6 +1230,9 @@ public class FlightManager {
 		});
 	}
 
+	/**
+	 * Select flights in GUI mode
+	 */
 	private void selectFlightsGUI(String dp, String ds, int cn, int time, JTextArea t) {
 		int resultCount = 0;
 		try {
